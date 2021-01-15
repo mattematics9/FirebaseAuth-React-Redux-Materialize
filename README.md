@@ -14,43 +14,43 @@ Add a web app. You should see the web app option under "Get started by adding Fi
 
 Add the Firebase SDK to your project. You will see something like this:
 
-var firebaseConfig = {
-    apiKey: "AIgaSyAvu__t_6LOw8kiPnZ2wjyUYeVgHN8UD5U",
-    authDomain: "name-of-project.firebaseapp.com",
-    databaseUrl: https://name-of-project.firebaseio.com
-    projectId: "name-of-project",
-    storageBucket: "name-of-project.appspot.com",
-    messagingSenderId: "289923169528",
-    appId: "1:289923169528:web:8b436e9dae4fa67fd4e791"
-    measurementId: G-NQJ7JS8PWF
-};
+    var firebaseConfig = {
+        apiKey: "AIgaSyAvu__t_6LOw8kiPnZ2wjyUYeVgHN8UD5U",
+        authDomain: "name-of-project.firebaseapp.com",
+        databaseUrl: https://name-of-project.firebaseio.com
+        projectId: "name-of-project",
+        storageBucket: "name-of-project.appspot.com",
+        messagingSenderId: "289923169528",
+        appId: "1:289923169528:web:8b436e9dae4fa67fd4e791"
+        measurementId: G-NQJ7JS8PWF
+    };
 
 Instead of copying and pasting this object into src/firbase/config.js, I used a .env.local file to store the environment variables, and then I used process.env to retrieve them in the source code. This way, my app works on my local device, but when I push to github, other users will not be able to access my Firebase Auth and Cloud Firestore. You can replicate the procedure with your own firebase configuration and environment variables by following these steps:
 
 In your root directory make a .env.local file. In this file we will store our firebase config values like so:
 
-REACT_APP_FIREBASE_API_KEY = AIgaSyAvu__t_6LOw8kiPnZ2wjyUYeVgHN8UD5U
-REACT_APP_FIREBASE_AUTH-DOMAIN = name-of-project.firebaseapp.com
-REACT_APP_FIREBASE_DATABASE_URL = https://name-of-project.firebaseio.com
-REACT_APP_FIREBASE_PROJECT_ID = name-of-project
-REACT_APP_FIREBASE_STORAGE_BUCKET = name-of-project.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID = 289923169528
-REACT_APP_FIREBASE_APP_ID = 1:289923169528:web:8b436e9dae4fa67fd4e791
-REACT_APP_FIREBASE_MEASUREMENT_ID = G-NQJ7JS8PWF
-Note: all environment variables in react need to start with REACT_APP. I then added _FIREBASE. The rest is just the names of the keys of the firebase config object. We use all caps and separate words with _
+    REACT_APP_FIREBASE_API_KEY = AIgaSyAvu__t_6LOw8kiPnZ2wjyUYeVgHN8UD5U
+    REACT_APP_FIREBASE_AUTH-DOMAIN = name-of-project.firebaseapp.com
+    REACT_APP_FIREBASE_DATABASE_URL = https://name-of-project.firebaseio.com
+    REACT_APP_FIREBASE_PROJECT_ID = name-of-project
+    REACT_APP_FIREBASE_STORAGE_BUCKET = name-of-project.appspot.com
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID = 289923169528
+    REACT_APP_FIREBASE_APP_ID = 1:289923169528:web:8b436e9dae4fa67fd4e791
+    REACT_APP_FIREBASE_MEASUREMENT_ID = G-NQJ7JS8PWF
+    Note: all environment variables in react need to start with REACT_APP. I then added _FIREBASE. The rest is just the names of the keys of the firebase config object. We use all caps and separate words with _
 
 Therefore, in the src/firebase/config.js file, we see the following:
 
-const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
-};
+    const firebaseConfig = {
+        apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+        authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+        databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+        projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+        storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+        appId: process.env.REACT_APP_FIREBASE_APP_ID,
+        measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+    };
 
 Now I included the .env.local file in the .gitignore file, so when I push to github, other people will not be able to access my firebase services. If I was to deploy this app online for users to use, I would not use environement variables at all, and just include the original firebaseConfig object in my src/firebase/config.js file.
 
