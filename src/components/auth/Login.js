@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { loginUser } from '../../store/actions/authActions'
-import { connect } from 'react-redux'
+import { loginUser } from '../../firebase/methods'
 
 const Login = (props) => {
     
@@ -10,7 +9,7 @@ const Login = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.history.push('/');
-        props.loginUser(email, password);
+        loginUser(email, password);
     }
 
     const handleChange = (e) => {
@@ -44,10 +43,4 @@ const Login = (props) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        loginUser: (email, password) => dispatch(loginUser(email, password))
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Login)
+export default Login

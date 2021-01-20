@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { signOutUser } from '../../store/actions/authActions'
-import { connect } from 'react-redux'
+import { signOutUser } from '../../firebase/methods'
 
 const LoggedInLinks = (props) => {
 
     const handleClick = () => {
-        props.signOutUser();
+        signOutUser();
     }
 
     return (
@@ -17,10 +16,4 @@ const LoggedInLinks = (props) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signOutUser: () => dispatch(signOutUser())
-    }
-}
-
-export default connect(null, mapDispatchToProps)(LoggedInLinks)
+export default LoggedInLinks

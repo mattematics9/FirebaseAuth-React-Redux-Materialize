@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 const Home = (props) => {
 
     const { currentUser } = props;
+    console.log(currentUser);
 
     return (
         <div>

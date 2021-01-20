@@ -7,25 +7,8 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
     switch (action.type){
-        case 'SIGN_UP_USER':
-            return {
-                ...state,
-                currentUser: {
-                    ...state.currentUser,
-                    userAuth: action.payload.userAuth,
-                    userFirestoreDoc: action.payload.userFirestoreDoc
-                }
-            }
-        case 'SIGN_OUT_USER':
-            return {
-                ...state,
-                currentUser: {
-                    ...state.currentUser,
-                    userAuth: null,
-                    userFirestoreDoc: null,
-                }
-            }
-        case 'LOGIN_USER':
+
+        case 'AUTH_STATE_CHANGED':
             return {
                 ...state,
                 currentUser: {

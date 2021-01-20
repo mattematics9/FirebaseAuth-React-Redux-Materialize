@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { signUpUser } from '../../store/actions/authActions'
+import { signUpUser } from '../../firebase/methods'
 
 const SignUp = (props) => {
  
@@ -11,7 +10,7 @@ const SignUp = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.history.push('/');
-        props.signUpUser(name, email, password)
+        signUpUser(name, email, password)
     }
 
     const handleChange = (e) => {
@@ -52,10 +51,4 @@ const SignUp = (props) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signUpUser: (name,email,password) => dispatch(signUpUser(name, email, password)) 
-    }
-}
-
-export default connect(null, mapDispatchToProps)(SignUp)
+export default SignUp
