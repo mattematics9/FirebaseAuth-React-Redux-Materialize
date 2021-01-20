@@ -1,9 +1,10 @@
 import React from 'react'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from '../store/reducers/rootReducer'
+import thunk from 'redux-thunk'
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export const UserProvider = (props) => {
 

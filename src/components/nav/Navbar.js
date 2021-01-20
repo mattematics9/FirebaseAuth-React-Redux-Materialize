@@ -11,10 +11,10 @@ const Navbar = (props) => {
 
         var sidenav = document.querySelectorAll('.sidenav');
         M.Sidenav.init(sidenav, {});
-    })
+    }, [])
 
     const { currentUser } = props;
-    const links = currentUser? <LoggedInLinks/>: <SignedOutLinks/>;
+    const links = currentUser.name? <LoggedInLinks/>: <SignedOutLinks/>;
 
     return (
         <div>
