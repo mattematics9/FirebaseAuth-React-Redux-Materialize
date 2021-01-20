@@ -14,7 +14,7 @@ const Navbar = (props) => {
     }, [])
 
     const { currentUser } = props;
-    const links = currentUser.name? <LoggedInLinks/>: <SignedOutLinks/>;
+    const links = currentUser.userAuth? <LoggedInLinks/>: <SignedOutLinks/>;
 
     return (
         <div>

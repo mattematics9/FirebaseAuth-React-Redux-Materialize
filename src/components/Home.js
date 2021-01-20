@@ -1,11 +1,22 @@
 import React from 'react'
+import Profile from './profile/Profile'
+import { connect } from 'react-redux'
 
-const Home = () => {
+const Home = (props) => {
+
+    const { currentUser } = props;
+
     return (
         <div>
-            THIS IS THE HOME PAGE
+            {currentUser.userAuth? <Profile/>: null}
         </div>
     )
 }
 
-export default Home
+const mapStateToProps = (state) => {
+    return {
+      currentUser: state.currentUser
+    }
+  }
+
+export default connect(mapStateToProps)(Home)

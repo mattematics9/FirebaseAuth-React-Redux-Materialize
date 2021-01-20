@@ -1,8 +1,7 @@
 const initState = {
     currentUser: {
-        name: null,
-        email: null,
-        img: null
+        userAuth: null,
+        userFirestoreDoc: null
     }
 }
 
@@ -13,17 +12,17 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    name: action.payload.name,
-                    email: action.payload.email
+                    userAuth: action.payload.userAuth,
+                    userFirestoreDoc: action.payload.userFirestoreDoc
                 }
             }
         case 'SIGN_OUT_USER':
             return {
                 ...state,
                 currentUser: {
-                    name: null,
-                    email: null,
-                    img: null
+                    ...state.currentUser,
+                    userAuth: null,
+                    userFirestoreDoc: null,
                 }
             }
         case 'LOGIN_USER':
@@ -31,8 +30,8 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    name: action.payload.name,
-                    email: action.payload.email
+                    userAuth: action.payload.userAuth,
+                    userFirestoreDoc: action.payload.userFirestoreDoc
                 }
             }
         case 'EDIT_PROFILE':
@@ -40,8 +39,8 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    name: action.payload.name,
-                    email: action.payload.email
+                    userAuth: action.payload.userAuth,
+                    userFirestoreDoc: action.payload.userFirestoreDoc
                 }
             }
         default:
