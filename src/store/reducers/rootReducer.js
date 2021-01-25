@@ -1,28 +1,20 @@
 const initState = {
     currentUser: {
-        userAuth: null,
+        user: null,
         userFirestoreDoc: null
     }
 }
 
 const rootReducer = (state = initState, action) => {
-    switch (action.type){
 
+    switch (action.type){
         case 'AUTH_STATE_CHANGED':
-            return {
-                ...state,
-                currentUser: {
-                    ...state.currentUser,
-                    userAuth: action.payload.userAuth,
-                    userFirestoreDoc: action.payload.userFirestoreDoc
-                }
-            }
         case 'EDIT_PROFILE':
             return {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    userAuth: action.payload.userAuth,
+                    user: action.payload.user,
                     userFirestoreDoc: action.payload.userFirestoreDoc
                 }
             }

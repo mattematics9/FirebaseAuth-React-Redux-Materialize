@@ -4,27 +4,26 @@ import Home from './components/Home'
 import Navbar from './components/nav/Navbar'
 import Login from './components/auth/Login'
 import SignUp from './components/auth/SignUp'
-import { authStateChanged } from './store/actions/authActions'
-import { auth, firestore} from './firebase/config'
+import { auth, firestore } from './firebase/config'
 import { connect } from 'react-redux'
 
 
 function App(props) {
 
-
-
+  const { dispatch } = props;
+  //The user's token is automatically persisted to local storage, and is read when the page is loaded. This means that the user should automatically be authenticated again when you reload the page.  However, without onAuthStateChanged the code doesn't detect this authentication, since your components run before Firebase has reloaded and validated the user credentials. To fix this, you'll want to listen for the (asynchronous) onAuthStateChanged() event, instead of getting the value synchronously.
   useEffect(() => {
-      auth.onAuthStateChanged(function(userAuth) {
+      auth.onAuthStateChanged(function(user) {
 
-          if(userAuth){
-            firestore.collection('users').doc(userAuth.uid).get().then(userFirestoreDoc => {
-              props.authStateChanged(userAuth, userFirestoreDoc)
+          if(user){
+              firestore.collection('users').doc(user.uid).get().then(userFirestoreDoc => {
+                  dispatch(user, userFirestoreDoc)
             })
           }else{
-            props.authStateChanged(null, null)
+              dispatch(null, null)
           }
       });
-  })
+  }, [dispatch])
 
   return (
     <BrowserRouter>
@@ -38,9 +37,22 @@ function App(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authStateChanged: (userAuth, userFirestoreDoc) => dispatch(authStateChanged(userAuth, userFirestoreDoc)),
-    
+    dispatch: (user, userFirestoreDoc) => {
+        dispatch({
+            type: 'AUTH_STATE_CHANGED',
+            payload: {
+                user,
+                userFirestoreDoc
+            }
+        })
+    }
   }
 }
 
-export default connect(null, mapDispatchToProps)(App)
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -5,11 +5,10 @@ import { connect } from 'react-redux'
 const Home = (props) => {
 
     const { currentUser } = props;
-    console.log(currentUser);
 
     return (
         <div>
-            {currentUser.userAuth? <Profile/>: null}
+            {currentUser.user? <Profile/>: null}
         </div>
     )
 }
