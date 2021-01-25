@@ -6,6 +6,7 @@ import Login from './components/auth/Login'
 import SignUp from './components/auth/SignUp'
 import { auth, firestore } from './firebase/config'
 import { connect } from 'react-redux'
+import EditProfile from './components/profile/EditProfile'
 
 
 function App(props) {
@@ -31,6 +32,7 @@ function App(props) {
       <Route exact path="/" component={Home}/>
       <Route path="/login" component={Login}/>
       <Route path="/signup" component={SignUp}/>
+      <Route path="/edit-profile" component={EditProfile}/>
     </BrowserRouter>
   );
 }
