@@ -12,16 +12,21 @@ import EditProfile from './components/profile/EditProfile'
 function App(props) {
 
   const { dispatch } = props;
+
   //The user's token is automatically persisted to local storage, and is read when the page is loaded. This means that the user should automatically be authenticated again when you reload the page.  However, without onAuthStateChanged the code doesn't detect this authentication, since your components run before Firebase has reloaded and validated the user credentials. To fix this, you'll want to listen for the (asynchronous) onAuthStateChanged() event, instead of getting the value synchronously.
   useEffect(() => {
       auth.onAuthStateChanged(function(user) {
-
           if(user){
-              firestore.collection('users').doc(user.uid).get().then(userFirestoreDoc => {
-                  dispatch(user, userFirestoreDoc)
+              firestore.collection('users').doc(user.uid).get().then(userFirestoreRes => {
+                  let userFirestoreDoc = userFirestoreRes.data()
+                  dispatch(user, userFirestoreDoc);
+                  sessionStorage.setItem('user', JSON.stringify(user));
+                  sessionStorage.setItem('userFirestoreDoc', JSON.stringify(userFirestoreDoc));
             })
           }else{
-              dispatch(null, null)
+              dispatch(null, null);
+              sessionStorage.removeItem('user');
+              sessionStorage.removeItem('userFirestoreDoc');
           }
       });
   }, [dispatch])

@@ -1,7 +1,7 @@
 const initState = {
     currentUser: {
-        user: null,
-        userFirestoreDoc: null
+        user: JSON.parse(sessionStorage.getItem('user')) || null,
+        userFirestoreDoc: JSON.parse(sessionStorage.getItem('userFirestoreDoc')) || null
     }
 }
 
